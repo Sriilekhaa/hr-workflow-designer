@@ -1,210 +1,183 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Layout } from '../components/Layout';
-import { fetchDashboardStats } from '../services/api';
-import type { DashboardStats } from '../services/api';
-import { formatRelativeTime } from '../utils/timeFormat';
-
-const statusConfig: Record<string, { dot: string; text: string; label: string }> = {
-  active:   { dot: 'bg-green-400',  text: 'text-green-400',  label: 'Active' },
-  draft:    { dot: 'bg-gray-600',   text: 'text-gray-500',   label: 'Draft' },
-  archived: { dot: 'bg-gray-600',   text: 'text-gray-500',   label: 'Archived' },
-  error:    { dot: 'bg-red-400',    text: 'text-red-400',    label: 'Error' },
-};
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchDashboardStats().then((data) => { setStats(data); setLoading(false); });
-  }, []);
-
-  if (loading || !stats) {
-    return (
-      <Layout>
-        <div className="flex-1 flex items-center justify-center">
-          <span className="material-symbols-outlined animate-spin text-violet-400 text-3xl">progress_activity</span>
-        </div>
-      </Layout>
-    );
-  }
 
   return (
-    <Layout>
-      <div className="flex-1 workflow-dot-grid relative overflow-hidden bg-surface-container-lowest overflow-y-auto">
-        <div className="p-gutter max-w-7xl mx-auto space-y-gutter pb-12 pt-6">
-          <div className="flex flex-col gap-1">
-            <h1 className="font-h1 text-h1 text-on-surface">Architect Dashboard</h1>
-            <p className="text-body-md font-body-md text-gray-400">Manage and monitor your HR operational logic structures.</p>
-          </div>
+    <div className="min-h-screen w-full bg-[#05050A] text-white relative overflow-hidden font-inter selection:bg-violet-500/30 flex items-center justify-center">
+      {/* 16:9 Aspect Ratio Container for Cinematic Look */}
+      <div className="w-full max-w-[1920px] aspect-video relative flex flex-col">
+        
+        {/* Background Grid & Glows */}
+        <div className="absolute inset-0 workflow-dot-grid opacity-30 pointer-events-none"></div>
+        <div className="absolute top-[10%] right-[5%] w-[40%] h-[60%] bg-violet-600/15 rounded-full blur-[150px] pointer-events-none"></div>
+        <div className="absolute bottom-[10%] left-[5%] w-[40%] h-[60%] bg-blue-600/15 rounded-full blur-[150px] pointer-events-none"></div>
 
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack_gap">
-            <div className="bg-[#1A1D23] p-card_padding rounded-xl border border-white/5 hover:border-violet-500/50 transition-all group">
-              <div className="flex justify-between items-start mb-4">
-                <div className="p-2 bg-violet-500/10 rounded-lg">
-                  <span className="material-symbols-outlined text-violet-400">account_tree</span>
-                </div>
-              </div>
-              <div className="text-h2 font-h2 text-on-surface">{stats.totalWorkflows}</div>
-              <div className="text-label-sm font-label-sm text-gray-500 uppercase tracking-wider mt-1">Total Workflows</div>
-            </div>
+        {/* Tech Borders */}
+        <div className="absolute inset-6 border border-white/5 rounded-3xl pointer-events-none z-0">
+          <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+          <div className="absolute bottom-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-violet-500/30 rounded-tl-3xl"></div>
+          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-violet-500/30 rounded-tr-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-violet-500/30 rounded-bl-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-violet-500/30 rounded-br-3xl"></div>
+        </div>
 
-            <div className="bg-[#1A1D23] p-card_padding rounded-xl border border-white/5 hover:border-blue-500/50 transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <span className="material-symbols-outlined text-blue-400">bolt</span>
-                </div>
-                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+        <div className="relative z-10 flex-1 flex flex-col p-12">
+          
+          {/* Header */}
+          <header className="flex items-center justify-between pb-6 mb-8 z-20">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-4xl text-violet-500">account_tree</span>
+                <span className="text-2xl font-bold tracking-tight text-white">HR Flow</span>
               </div>
-              <div className="text-h2 font-h2 text-on-surface">{stats.activeWorkflows}</div>
-              <div className="text-label-sm font-label-sm text-gray-500 uppercase tracking-wider mt-1">Active Now</div>
-            </div>
-
-            <div className="bg-[#1A1D23] p-card_padding rounded-xl border border-white/5 hover:border-red-500/50 transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className="p-2 bg-red-500/10 rounded-lg">
-                  <span className="material-symbols-outlined text-red-400">error</span>
-                </div>
-                {stats.failedRuns > 0 && <span className="text-label-sm font-label-sm text-red-400">Needs Action</span>}
-              </div>
-              <div className="text-h2 font-h2 text-on-surface">{stats.failedRuns}</div>
-              <div className="text-label-sm font-label-sm text-gray-500 uppercase tracking-wider mt-1">Failed Runs</div>
-            </div>
-
-            <div className="bg-[#1A1D23] p-card_padding rounded-xl border border-white/5 hover:border-amber-500/50 transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className="p-2 bg-amber-500/10 rounded-lg">
-                  <span className="material-symbols-outlined text-amber-400">assignment_late</span>
-                </div>
-                {stats.pendingApprovals > 0 && <span className="text-label-sm font-label-sm text-amber-400">{stats.pendingApprovals} Pending</span>}
-              </div>
-              <div className="text-h2 font-h2 text-on-surface">{stats.pendingApprovals}</div>
-              <div className="text-label-sm font-label-sm text-gray-500 uppercase tracking-wider mt-1">Pending / Draft</div>
-            </div>
-          </section>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-            <section className="lg:col-span-2 space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-h2 text-h2 text-on-surface">Recent Workflows</h2>
-                <button className="text-violet-400 text-body-md hover:underline" onClick={() => navigate('/workflows')}>View all</button>
-              </div>
-              <div className="bg-[#1A1D23] rounded-xl border border-white/5 overflow-hidden">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-white/5 text-gray-400 font-label-sm text-label-sm uppercase tracking-wider">
-                      <th className="px-6 py-4">Workflow Name</th>
-                      <th className="px-6 py-4">Status</th>
-                      <th className="px-6 py-4">Last Updated</th>
-                      <th className="px-6 py-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5 text-body-md font-body-md">
-                    {stats.recentWorkflows.map((wf) => {
-                      const sc = statusConfig[wf.status] ?? statusConfig.draft;
-                      return (
-                        <tr key={wf.id} className="hover:bg-white/[0.02] transition-colors">
-                          <td className="px-6 py-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded bg-violet-500/10 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-violet-400 text-sm">account_tree</span>
-                              </div>
-                              <span className="font-semibold">{wf.name}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className={`flex items-center gap-2 ${sc.text}`}>
-                              <span className={`w-1.5 h-1.5 rounded-full ${sc.dot}`}></span>
-                              {sc.label}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-gray-500">{formatRelativeTime(wf.updated_at)}</td>
-                          <td className="px-6 py-4 text-right">
-                            <button className="p-1 hover:text-violet-400 transition-colors" onClick={() => navigate('/designer')}>
-                              <span className="material-symbols-outlined">edit</span>
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                    {stats.recentWorkflows.length === 0 && (
-                      <tr><td colSpan={4} className="px-6 py-8 text-center text-gray-500">No workflows yet.</td></tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-h2 text-h2 text-on-surface">Activity Timeline</h2>
-              </div>
-              <div className="bg-[#1A1D23] rounded-xl border border-white/5 p-card_padding relative overflow-hidden">
-                <div className="absolute left-[39px] top-8 bottom-8 w-px bg-white/10"></div>
-                <div className="space-y-8 relative">
-                  {stats.activityLog.map((act) => (
-                    <div key={act.id} className="flex gap-4 group">
-                      <div className="w-10 h-10 rounded-full bg-[#252932] border border-white/10 flex items-center justify-center z-10 group-hover:border-violet-500/50 transition-colors">
-                        <span className={`material-symbols-outlined ${act.icon_color} text-lg`}>{act.icon}</span>
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className="text-body-md font-semibold text-on-surface">{act.action}</span>
-                        <span className="text-label-sm text-gray-500">{act.actor} &bull; {formatRelativeTime(act.created_at)}</span>
-                        <span className="text-xs text-gray-400">{act.description}</span>
-                      </div>
-                    </div>
-                  ))}
-                  {stats.activityLog.length === 0 && (
-                    <p className="text-gray-500 text-sm">No recent activity.</p>
-                  )}
-                </div>
-              </div>
-            </section>
-          </div>
-
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-stack_gap pt-8">
-            <div className="md:col-span-1 bg-[#1A1D23] rounded-xl border border-white/5 p-card_padding">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-h3 text-h3 text-on-surface">System Health</h3>
-                <span className="text-green-400 text-xs font-bold uppercase">Optimal</span>
-              </div>
-              <div className="space-y-4">
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Automation Uptime</span>
-                    <span>99.9%</span>
-                  </div>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full bg-violet-500 w-[99%]"></div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>API Success Rate</span>
-                    <span>94.2%</span>
-                  </div>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-500 w-[94%]"></div>
-                  </div>
-                </div>
+              <div className="h-6 w-px bg-white/10"></div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-300">Systems Architecture</span>
               </div>
             </div>
-            <div className="md:col-span-2 relative h-[180px] bg-[#1A1D23] rounded-xl border border-white/5 overflow-hidden flex flex-col justify-center px-12">
-              <div className="absolute inset-0 workflow-dot-grid opacity-20"></div>
-              <div className="relative z-10">
-                <h3 className="font-h3 text-h3 text-on-surface mb-2">Master Your Flows</h3>
-                <p className="text-body-md text-gray-400 max-w-md">The new logic engine allows for asynchronous triggers across multiple departmental databases.</p>
-                <button className="mt-4 text-violet-400 font-semibold flex items-center gap-2 hover:gap-3 transition-all" onClick={() => navigate('/designer')}>
-                  Open Designer <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            
+            <nav className="flex items-center gap-8">
+              <button onClick={() => navigate('/workflows')} className="text-sm text-gray-400 hover:text-white transition-colors">Workflows</button>
+              <button onClick={() => navigate('/automations')} className="text-sm text-gray-400 hover:text-white transition-colors">Automations</button>
+              <button onClick={() => navigate('/logs')} className="text-sm text-gray-400 hover:text-white transition-colors">Logs</button>
+              <button 
+                onClick={() => navigate('/designer')}
+                className="bg-violet-600 hover:bg-violet-500 text-white px-8 py-3 rounded-xl text-sm font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">add</span>
+                New Workflow
+              </button>
+            </nav>
+          </header>
+
+          {/* Main Content */}
+          <div className="flex-1 grid grid-cols-2 gap-12 items-center z-10">
+            
+            {/* Left Column: Hero Text */}
+            <div className="space-y-8 pl-4">
+              <div>
+                <h1 className="text-6xl 2xl:text-7xl font-black text-white leading-[1.1] tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                  SHAPE THE FUTURE OF <br/>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 drop-shadow-[0_0_30px_rgba(167,139,250,0.4)]">
+                    HR AUTOMATION
+                  </span>
+                </h1>
+                <p className="text-xl 2xl:text-2xl text-gray-300 mt-6 font-medium leading-relaxed max-w-xl">
+                  The ultimate agentic platform to design, simulate, and deploy complex HR logic across your entire ecosystem.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-6">
+                <button 
+                  onClick={() => navigate('/workflows')}
+                  className="bg-white text-black px-10 py-4 rounded-xl font-bold text-lg transition-all hover:bg-gray-200 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                >
+                  Open Dashboard
+                </button>
+                <button 
+                  onClick={() => navigate('/designer')}
+                  className="bg-transparent border border-white/20 text-white hover:bg-white/5 px-10 py-4 rounded-xl font-bold text-lg transition-all"
+                >
+                  View Case Study
                 </button>
               </div>
-              <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-violet-500/10 rounded-full blur-3xl"></div>
+
+              {/* Key Details Panel */}
+              <div className="bg-[#12141A]/80 backdrop-blur-md border border-white/10 rounded-2xl p-8 max-w-xl shadow-2xl relative overflow-hidden group mt-12">
+                <div className="absolute top-0 left-0 w-1 h-full bg-violet-500"></div>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-4">
+                    <span className="text-gray-400 w-40 font-medium">Core Engine:</span>
+                    <span className="text-white font-semibold">Zero-to-One Agentic Deployment</span>
+                  </li>
+                  <li className="flex items-center gap-4">
+                    <span className="text-gray-400 w-40 font-medium">Execution:</span>
+                    <span className="text-white font-semibold">Asynchronous Node Logic</span>
+                  </li>
+                  <li className="flex items-center gap-4">
+                    <span className="text-gray-400 w-40 font-medium">Integration:</span>
+                    <span className="text-white font-semibold">Native HRIS & Database Sync</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </section>
+
+            {/* Right Column: Visualization Mock */}
+            <div className="relative h-full w-full bg-[#0A0C10]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden mr-4">
+              <div className="absolute inset-0 workflow-dot-grid opacity-20"></div>
+              
+              <div className="absolute top-6 left-6 z-20 px-4 py-2 bg-violet-500/20 border border-violet-500/30 rounded-full text-violet-300 text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+                Workflow Sandbox Panel
+              </div>
+
+              {/* Nodes Mockup */}
+              <div className="relative w-full h-full flex flex-col items-center justify-center gap-12 z-10 scale-[1.1] 2xl:scale-[1.2]">
+                
+                {/* Lines */}
+                <div className="absolute top-[10%] bottom-[10%] left-1/2 w-0 border-l-2 border-dashed border-violet-500/40 animate-pulse z-0"></div>
+
+                {/* Start Node */}
+                <div className="relative z-10 w-56 bg-[#1A1D24] border border-emerald-500/50 rounded-xl p-4 shadow-2xl flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-emerald-400 text-xl">play_arrow</span>
+                  </div>
+                  <span className="text-white text-sm font-bold uppercase tracking-wider">Start Trigger</span>
+                </div>
+
+                {/* Task Node */}
+                <div className="relative z-10 w-72 bg-[#1A1D24] border border-blue-500/50 rounded-xl p-4 shadow-2xl flex flex-col gap-2 translate-x-12">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-blue-400 text-lg">code</span>
+                    </div>
+                    <span className="text-white text-sm font-bold uppercase tracking-wider">Evaluation Logic</span>
+                  </div>
+                  <p className="text-xs text-gray-400 ml-11">Running automated script validation</p>
+                </div>
+
+                {/* Approval Node */}
+                <div className="relative z-10 w-72 bg-[#1A1D24] border border-amber-500/50 rounded-xl p-4 shadow-2xl flex flex-col gap-2 -translate-x-12">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-amber-400 text-lg">person</span>
+                    </div>
+                    <span className="text-white text-sm font-bold uppercase tracking-wider">Manager Approval</span>
+                  </div>
+                  <p className="text-xs text-gray-400 ml-11">Awaiting manual sign-off from HR</p>
+                </div>
+
+                {/* End Node */}
+                <div className="relative z-10 w-56 bg-[#1A1D24] border border-red-500/50 rounded-xl p-4 shadow-2xl flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-red-400 text-xl">stop_circle</span>
+                  </div>
+                  <span className="text-white text-sm font-bold uppercase tracking-wider">End Process</span>
+                </div>
+
+              </div>
+
+              {/* Assessment Criteria Floating Panel */}
+              <div className="absolute right-6 bottom-6 z-20 w-72 bg-[#12141A]/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                <div className="bg-white/5 px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                  <span className="text-xs font-bold text-gray-300 uppercase tracking-wider">Execution Log</span>
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                </div>
+                <div className="p-4 font-code text-[10px] text-gray-400 space-y-2 leading-relaxed">
+                  <p>› Initiating automated sequence...</p>
+                  <p className="text-emerald-400">› Evaluation successful (14ms)</p>
+                  <p>› Sending webhook to slack-api</p>
+                  <p className="text-violet-400 font-bold">› Status: STANDBY_APPROVAL</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };

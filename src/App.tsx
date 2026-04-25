@@ -7,6 +7,8 @@ import { AdvancedCanvas } from './pages/AdvancedCanvas';
 import { ExecutionLogs } from './pages/ExecutionLogs';
 import { SimulationInstance } from './pages/SimulationInstance';
 import { AutomationTemplates } from './pages/AutomationTemplates';
+import { Settings } from './pages/Settings';
+import { Help } from './pages/Help';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Route path="/simulation" element={<SimulationInstance />} />
       <Route path="/automations" element={<AutomationTemplates />} />
       <Route path="/templates" element={<AutomationTemplates />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/help" element={<Help />} />
     </Routes>
   );
 }

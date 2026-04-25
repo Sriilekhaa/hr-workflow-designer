@@ -64,12 +64,12 @@ export const Sidebar: React.FC = () => {
 
         <div className="flex items-center gap-3 mt-6 px-3 py-2 bg-white/5 rounded-xl border border-white/5">
           <img
-            alt="HR Operations Architect Profile"
+            alt="sriii Profile"
             className="w-8 h-8 rounded-full object-cover border border-violet-500/30"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjD7rlMO-NsJqwROW2wb_ICroKVRVSDejFFYp__sRAiJNKk6ohFD2mG9ZF-w2jr1Cji9ZsUTUyGyntmqCPql8maTBVIv5QwVmZZZL5OPlPsaPX_AKcL5HTUWvEFsyNo7Ucrx6K0wqtYnxyTdbZExQb-iQbaYu9fte63q8ylUXiYddhdU6Efg5ikZ2SDSoMt4KwAhAyVy1ewjFShyMzYTEeIGCDTXm8xxVGO-rc1XsCUES0DAWQRGRHZr6e2PGP7o7uzOKkdvLEcKOb"
+            src="/avatar.png"
           />
           <div className="overflow-hidden">
-            <p className="text-xs font-semibold text-white truncate">Marcus Chen</p>
+            <p className="text-xs font-semibold text-white truncate">sriii</p>
             <p className="text-[10px] text-gray-500 truncate">Architect</p>
           </div>
         </div>
