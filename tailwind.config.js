@@ -71,13 +71,13 @@ export default {
         "card_padding": "20px"
       },
       fontFamily: {
-        "h1": ["Inter"],
-        "h2": ["Inter"],
-        "label-sm": ["Inter"],
-        "body-lg": ["Inter"],
-        "code": ["Inter"],
-        "body-md": ["Inter"],
-        "h3": ["Inter"]
+        "h1": ["Outfit"],
+        "h2": ["Outfit"],
+        "label-sm": ["Outfit"],
+        "body-lg": ["Outfit"],
+        "code": ["Outfit"],
+        "body-md": ["Outfit"],
+        "h3": ["Outfit"]
       },
       fontSize: {
         "h1": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],

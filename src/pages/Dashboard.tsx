@@ -5,179 +5,180 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-[#05050A] text-white relative overflow-hidden font-inter selection:bg-violet-500/30 flex items-center justify-center">
-      {/* 16:9 Aspect Ratio Container for Cinematic Look */}
-      <div className="w-full max-w-[1920px] aspect-video relative flex flex-col">
-        
-        {/* Background Grid & Glows */}
-        <div className="absolute inset-0 workflow-dot-grid opacity-30 pointer-events-none"></div>
-        <div className="absolute top-[10%] right-[5%] w-[40%] h-[60%] bg-violet-600/15 rounded-full blur-[150px] pointer-events-none"></div>
-        <div className="absolute bottom-[10%] left-[5%] w-[40%] h-[60%] bg-blue-600/15 rounded-full blur-[150px] pointer-events-none"></div>
+    <div className="min-h-screen w-full bg-[#030305] text-white relative overflow-hidden font-['Outfit'] selection:bg-violet-500/30 flex flex-col">
+      
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none mix-blend-overlay"></div>
+      <div className="absolute top-0 right-[20%] w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] pointer-events-none"></div>
 
-        {/* Tech Borders */}
-        <div className="absolute inset-6 border border-white/5 rounded-3xl pointer-events-none z-0">
-          <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
-          <div className="absolute bottom-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-violet-500/30 rounded-tl-3xl"></div>
-          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-violet-500/30 rounded-tr-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-violet-500/30 rounded-bl-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-violet-500/30 rounded-br-3xl"></div>
+      {/* Header */}
+      <header className="relative z-20 flex items-center justify-between px-8 md:px-16 py-8 w-full max-w-[1800px] mx-auto">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.3)] group-hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-500">
+              <span className="material-symbols-outlined text-white text-2xl">account_tree</span>
+            </div>
+            <span className="text-2xl font-bold tracking-tight text-white group-hover:text-violet-200 transition-colors">HR Flow</span>
+          </div>
         </div>
+        
+        <nav className="hidden md:flex items-center gap-8 bg-white/[0.03] px-6 py-3 rounded-2xl border border-white/[0.05] backdrop-blur-md">
+          <button onClick={() => navigate('/workflows')} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Workflows</button>
+          <button onClick={() => navigate('/automations')} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Automations</button>
+          <button onClick={() => navigate('/logs')} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Logs</button>
+          <div className="w-px h-4 bg-white/10 mx-2"></div>
+          <button 
+            onClick={() => navigate('/designer')}
+            className="group relative flex items-center gap-2 text-white text-sm font-bold tracking-wide transition-all"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg blur opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-2.5 rounded-lg flex items-center gap-2 border border-white/10">
+              <span className="material-symbols-outlined text-[18px]">add</span>
+              New Workflow
+            </div>
+          </button>
+        </nav>
+      </header>
 
-        <div className="relative z-10 flex-1 flex flex-col p-12">
+      {/* Main Content */}
+      <main className="relative z-10 flex-1 flex items-center justify-center w-full max-w-[1800px] mx-auto px-8 md:px-16 pb-12">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 xl:gap-24 items-center w-full">
           
-          {/* Header */}
-          <header className="flex items-center justify-between pb-6 mb-8 z-20">
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-4xl text-violet-500">account_tree</span>
-                <span className="text-2xl font-bold tracking-tight text-white">HR Flow</span>
-              </div>
-              <div className="h-6 w-px bg-white/10"></div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-300">Systems Architecture</span>
-              </div>
-            </div>
+          {/* Left Column: Hero Text */}
+          <div className="flex flex-col items-start gap-8 z-20 w-full max-w-2xl">
             
-            <nav className="flex items-center gap-8">
-              <button onClick={() => navigate('/workflows')} className="text-sm text-gray-400 hover:text-white transition-colors">Workflows</button>
-              <button onClick={() => navigate('/automations')} className="text-sm text-gray-400 hover:text-white transition-colors">Automations</button>
-              <button onClick={() => navigate('/logs')} className="text-sm text-gray-400 hover:text-white transition-colors">Logs</button>
+            {/* Sleek Badge */}
+            <div className="px-4 py-1.5 bg-white/[0.03] border border-white/10 rounded-full flex items-center gap-2.5 backdrop-blur-md shadow-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></div>
+              <span className="text-gray-300 text-[10px] font-bold uppercase tracking-[0.25em]">Tredence Studio</span>
+            </div>
+
+            {/* Main Typography */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight">
+              Shape the future of <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400">
+                HR Automation.
+              </span>
+            </h1>
+            
+            {/* Subtitle */}
+            <p className="text-lg text-gray-400 font-light leading-relaxed max-w-xl mt-[-8px]">
+              The ultimate agentic platform to visually map, simulate, and deploy complex human resources logic across your entire corporate ecosystem.
+            </p>
+
+            {/* Premium Buttons */}
+            <div className="flex flex-wrap items-center gap-5 mt-2">
               <button 
-                onClick={() => navigate('/designer')}
-                className="bg-violet-600 hover:bg-violet-500 text-white px-8 py-3 rounded-xl text-sm font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] flex items-center gap-2"
+                onClick={() => navigate('/workflows')}
+                className="group px-8 py-3.5 bg-white text-black rounded-full font-bold text-[15px] transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.15)] flex items-center gap-2"
               >
-                <span className="material-symbols-outlined text-[18px]">add</span>
-                New Workflow
+                Open Dashboard
+                <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </button>
-            </nav>
-          </header>
+            </div>
 
-          {/* Main Content */}
-          <div className="flex-1 grid grid-cols-2 gap-12 items-center z-10">
+            {/* Restored Value Props List */}
+            <div className="mt-6 w-full max-w-xl relative p-6 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-violet-500 to-indigo-500 rounded-l-2xl"></div>
+              <ul className="space-y-4">
+                <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-gray-500 text-sm font-medium w-36 uppercase tracking-wider">Core Engine:</span>
+                  <span className="text-white text-sm font-semibold tracking-wide">Zero-to-One Agentic Deployment</span>
+                </li>
+                <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-gray-500 text-sm font-medium w-36 uppercase tracking-wider">Execution:</span>
+                  <span className="text-white text-sm font-semibold tracking-wide">Asynchronous Node Logic</span>
+                </li>
+                <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <span className="text-gray-500 text-sm font-medium w-36 uppercase tracking-wider">Integration:</span>
+                  <span className="text-white text-sm font-semibold tracking-wide">Native HRIS & Database Sync</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          {/* Right Column: Visualization Mock */}
+          <div className="relative w-full aspect-square max-w-[700px] ml-auto flex items-center justify-center mt-12 xl:mt-0">
             
-            {/* Left Column: Hero Text */}
-            <div className="space-y-8 pl-4">
-              <div>
-                <h1 className="text-6xl 2xl:text-7xl font-black text-white leading-[1.1] tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                  SHAPE THE FUTURE OF <br/>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 drop-shadow-[0_0_30px_rgba(167,139,250,0.4)]">
-                    HR AUTOMATION
-                  </span>
-                </h1>
-                <p className="text-xl 2xl:text-2xl text-gray-300 mt-6 font-medium leading-relaxed max-w-xl">
-                  The ultimate agentic platform to design, simulate, and deploy complex HR logic across your entire ecosystem.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <button 
-                  onClick={() => navigate('/workflows')}
-                  className="bg-white text-black px-10 py-4 rounded-xl font-bold text-lg transition-all hover:bg-gray-200 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                >
-                  Open Dashboard
-                </button>
-                <button 
-                  onClick={() => navigate('/designer')}
-                  className="bg-transparent border border-white/20 text-white hover:bg-white/5 px-10 py-4 rounded-xl font-bold text-lg transition-all"
-                >
-                  View Case Study
-                </button>
-              </div>
-
-              {/* Key Details Panel */}
-              <div className="bg-[#12141A]/80 backdrop-blur-md border border-white/10 rounded-2xl p-8 max-w-xl shadow-2xl relative overflow-hidden group mt-12">
-                <div className="absolute top-0 left-0 w-1 h-full bg-violet-500"></div>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-4">
-                    <span className="text-gray-400 w-40 font-medium">Core Engine:</span>
-                    <span className="text-white font-semibold">Zero-to-One Agentic Deployment</span>
-                  </li>
-                  <li className="flex items-center gap-4">
-                    <span className="text-gray-400 w-40 font-medium">Execution:</span>
-                    <span className="text-white font-semibold">Asynchronous Node Logic</span>
-                  </li>
-                  <li className="flex items-center gap-4">
-                    <span className="text-gray-400 w-40 font-medium">Integration:</span>
-                    <span className="text-white font-semibold">Native HRIS & Database Sync</span>
-                  </li>
-                </ul>
-              </div>
+            {/* Soft Glass Container */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.05] rounded-[40px] backdrop-blur-3xl shadow-[0_0_80px_rgba(139,92,246,0.1)]"></div>
+            
+            <div className="absolute top-8 left-8 px-4 py-2 bg-white/[0.05] border border-white/[0.05] rounded-full text-gray-300 text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg backdrop-blur-xl">
+              Workflow Sandbox
             </div>
 
-            {/* Right Column: Visualization Mock */}
-            <div className="relative h-full w-full bg-[#0A0C10]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden mr-4">
-              <div className="absolute inset-0 workflow-dot-grid opacity-20"></div>
+            {/* Nodes Container */}
+            <div className="relative w-full flex flex-col items-center gap-8 z-10">
               
-              <div className="absolute top-6 left-6 z-20 px-4 py-2 bg-violet-500/20 border border-violet-500/30 rounded-full text-violet-300 text-xs font-bold uppercase tracking-wider flex items-center gap-2">
-                Workflow Sandbox Panel
+              {/* Central Dashed Line */}
+              <div className="absolute top-[5%] bottom-[5%] w-px border-l border-dashed border-white/15 z-0" style={{ left: 'calc(50% - 138px)' }}></div>
+
+              {/* Start Node */}
+              <div className="group relative z-10 w-[340px] bg-[#0A0A0F]/90 backdrop-blur-xl border border-emerald-500/20 rounded-2xl p-2 shadow-2xl flex items-center gap-4 hover:border-emerald-500/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)] shrink-0">
+                  <span className="material-symbols-outlined text-emerald-400 text-[22px]">play_arrow</span>
+                </div>
+                <span className="text-white text-xs font-bold uppercase tracking-widest">Start Trigger</span>
               </div>
 
-              {/* Nodes Mockup */}
-              <div className="relative w-full h-full flex flex-col items-center justify-center gap-12 z-10 scale-[1.1] 2xl:scale-[1.2]">
-                
-                {/* Lines */}
-                <div className="absolute top-[10%] bottom-[10%] left-1/2 w-0 border-l-2 border-dashed border-violet-500/40 animate-pulse z-0"></div>
-
-                {/* Start Node */}
-                <div className="relative z-10 w-56 bg-[#1A1D24] border border-emerald-500/50 rounded-xl p-4 shadow-2xl flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-emerald-400 text-xl">play_arrow</span>
-                  </div>
-                  <span className="text-white text-sm font-bold uppercase tracking-wider">Start Trigger</span>
+              {/* Task Node */}
+              <div className="group relative z-10 w-[340px] bg-[#0A0A0F]/90 backdrop-blur-xl border border-blue-500/20 rounded-2xl p-2 shadow-2xl flex items-center gap-4 hover:border-blue-500/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)] shrink-0">
+                  <span className="material-symbols-outlined text-blue-400 text-[22px]">code</span>
                 </div>
-
-                {/* Task Node */}
-                <div className="relative z-10 w-72 bg-[#1A1D24] border border-blue-500/50 rounded-xl p-4 shadow-2xl flex flex-col gap-2 translate-x-12">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-blue-400 text-lg">code</span>
-                    </div>
-                    <span className="text-white text-sm font-bold uppercase tracking-wider">Evaluation Logic</span>
-                  </div>
-                  <p className="text-xs text-gray-400 ml-11">Running automated script validation</p>
+                <div className="flex flex-col justify-center py-1">
+                  <span className="text-white text-xs font-bold uppercase tracking-widest">Evaluation Logic</span>
+                  <p className="text-[11px] text-gray-500 mt-1 font-light">Running automated script validation</p>
                 </div>
-
-                {/* Approval Node */}
-                <div className="relative z-10 w-72 bg-[#1A1D24] border border-amber-500/50 rounded-xl p-4 shadow-2xl flex flex-col gap-2 -translate-x-12">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-amber-400 text-lg">person</span>
-                    </div>
-                    <span className="text-white text-sm font-bold uppercase tracking-wider">Manager Approval</span>
-                  </div>
-                  <p className="text-xs text-gray-400 ml-11">Awaiting manual sign-off from HR</p>
-                </div>
-
-                {/* End Node */}
-                <div className="relative z-10 w-56 bg-[#1A1D24] border border-red-500/50 rounded-xl p-4 shadow-2xl flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-red-400 text-xl">stop_circle</span>
-                  </div>
-                  <span className="text-white text-sm font-bold uppercase tracking-wider">End Process</span>
-                </div>
-
               </div>
 
-              {/* Assessment Criteria Floating Panel */}
-              <div className="absolute right-6 bottom-6 z-20 w-72 bg-[#12141A]/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden">
-                <div className="bg-white/5 px-4 py-3 border-b border-white/5 flex items-center justify-between">
-                  <span className="text-xs font-bold text-gray-300 uppercase tracking-wider">Execution Log</span>
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+              {/* Approval Node */}
+              <div className="group relative z-10 w-[340px] bg-[#0A0A0F]/90 backdrop-blur-xl border border-amber-500/20 rounded-2xl p-2 shadow-2xl flex items-center gap-4 hover:border-amber-500/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.1)] shrink-0">
+                  <span className="material-symbols-outlined text-amber-400 text-[22px]">person</span>
                 </div>
-                <div className="p-4 font-code text-[10px] text-gray-400 space-y-2 leading-relaxed">
-                  <p>› Initiating automated sequence...</p>
-                  <p className="text-emerald-400">› Evaluation successful (14ms)</p>
-                  <p>› Sending webhook to slack-api</p>
-                  <p className="text-violet-400 font-bold">› Status: STANDBY_APPROVAL</p>
+                <div className="flex flex-col justify-center py-1">
+                  <span className="text-white text-xs font-bold uppercase tracking-widest">Manager Approval</span>
+                  <p className="text-[11px] text-gray-500 mt-1 font-light">Awaiting manual sign-off from HR</p>
                 </div>
+              </div>
+
+              {/* End Node */}
+              <div className="group relative z-10 w-[340px] bg-[#0A0A0F]/90 backdrop-blur-xl border border-red-500/20 rounded-2xl p-2 shadow-2xl flex items-center gap-4 hover:border-red-500/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.1)] shrink-0">
+                  <span className="material-symbols-outlined text-red-400 text-[22px]">stop_circle</span>
+                </div>
+                <span className="text-white text-xs font-bold uppercase tracking-widest">End Process</span>
               </div>
 
             </div>
+
+            {/* Execution Log Panel - Floating Overlap */}
+            <div className="absolute right-[-24px] bottom-[-24px] z-30 w-[340px] bg-[#0A0A0F]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden group hover:border-white/20 transition-colors duration-300">
+              <div className="bg-white/[0.02] px-5 py-3 border-b border-white/5 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">Execution Terminal</span>
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
+                  <div className="w-2 h-2 rounded-full bg-amber-500/50"></div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                </div>
+              </div>
+              <div className="p-5 font-code text-xs text-gray-500 space-y-2.5 leading-relaxed">
+                <p className="flex gap-3"><span className="text-gray-700">›</span> Initiating sequence...</p>
+                <p className="flex gap-3 text-emerald-400/90"><span className="text-emerald-500/50">›</span> Evaluation successful (14ms)</p>
+                <p className="flex gap-3 text-violet-400 font-medium"><span className="text-violet-500/50">›</span> Status: STANDBY_APPROVAL</p>
+                <p className="flex gap-3 animate-pulse"><span className="text-gray-700">›</span> <span className="w-2 h-4 bg-white/20"></span></p>
+              </div>
+            </div>
+
           </div>
 
         </div>
-      </div>
+      </main>
+
     </div>
   );
 };
